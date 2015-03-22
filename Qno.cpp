@@ -3,7 +3,7 @@ Autores: Nelson Cariqueo
 		 Diego Higuera
 		 Camila Vera
 
-Versión: 1.0
+Versión: 1.1
 
 Fecha: 17 de marzo de 2015
 
@@ -16,7 +16,7 @@ Fecha: 17 de marzo de 2015
 #include <time.h>
 using namespace std;
 
-void ordenar(int q[]){ //Metodo de ordenamiento BubleSort
+void ordenar(int q[]){ //Método de ordenamiento BubleSort
 	int i;
 	int j;
 	int aux;
@@ -31,21 +31,17 @@ void ordenar(int q[]){ //Metodo de ordenamiento BubleSort
 	}
 }
 
-int esta(int numero, int q[]){ //Función que sirve para verificar si un número
-	int i;					   //si un número aleatorio se encuentra en el arreglo
+int esta(int numero, int q[]){ //Función que sirve para verificar si un número en específico
+	int i;					   //se encuentra en el arreglo.
 	for(i = 0; i<14; i++){
-		/*if(q[i] != 0){*/
-			if(q[i] == numero)
-				return 1;
-		/*}*/
+		if(q[i] == numero)
+			return 1;
 	}
 	return 0;
 }
 
 void llenarVector(int qno[]){ //Función que llena el vector "qno" con número aleatorios
-	int seed = time(NULL);
-	//cout << seed*4 << endl << endl << endl;
-	srand(seed*4);
+	srand(time(NULL)*123456789);
 	int i;
 	int numero;
 	int isIn;
@@ -59,7 +55,7 @@ void llenarVector(int qno[]){ //Función que llena el vector "qno" con número a
 	}
 }
 
-string tiempo(){ //Funcion para obtener el tiempo en formato ISO YY:MM:DD HH:MM
+string tiempo(){ //Funcion para obtener el tiempo en formato ISO YY:MM:DD HH:MM:SS
 	time_t tiempo;
 	struct tm *ts;
 	char formatoISO[80];
@@ -67,11 +63,11 @@ string tiempo(){ //Funcion para obtener el tiempo en formato ISO YY:MM:DD HH:MM
 	tiempo = time(0);
 
 	ts = localtime(&tiempo);
-	strftime(formatoISO, sizeof(formatoISO), "%Y-%m-%d %H:%M", ts);
+	strftime(formatoISO, sizeof(formatoISO), "%Y-%m-%d %H:%M:%S", ts);
 	return formatoISO;
 }
 
-void Qno(){
+void Qno(){ //Procedimiento que crea el archivo con extensión .csv que almacena los números guardados en el arreglo lotería.
 	int i;
 	int loteria[14];
 
@@ -82,7 +78,7 @@ void Qno(){
 
 	ofstream archivo_salida;
 
-	string nombre_archivo = "prueba.csv";
+	string nombre_archivo = "Qno.csv";
 
 	archivo_salida.open(nombre_archivo.c_str(),ios::app);
 
@@ -100,19 +96,18 @@ void Qno(){
 		cout << endl;
 		archivo_salida << endl;
 
-		//archivo_salida.close();
+		archivo_salida.close();
 	}
-	archivo_salida.close();
 }
 
-void Info(){ //
-	string ptr = __DATE__;
-	string ptr2 = __TIME__;
-	cout << " " << endl
-		 << "Nelson Cariqueo Rojas" << endl
-		 << "Diego Higuera Fernandez" << endl
-		 << "Camila Vera Castañeda" << endl
-		 << "Fecha de compilacion " << ptr << " " << ptr2 << endl
+void Info(){ 
+	string ptr = __DATE__; //Macro que muestra la fecha de compilación.
+	string ptr2 = __TIME__; //Macro que muestra la hora de compilación (añadido para mostrar el momento exacto de compilación).
+	cout << "Integrantes " << endl
+		 << "\n\tNelson Cariqueo Rojas" << endl
+		 << "\tDiego Higuera Fernandez" << endl
+		 << "\tCamila Vera Castañeda" << endl
+		 << "\nFecha de compilacion " << ptr << " " << ptr2 << endl
 		 << " " << endl;
 }
 
